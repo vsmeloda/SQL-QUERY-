@@ -1,0 +1,15 @@
+Select distinc tamanho from tabela_de_produtos;
+
+VIEW `vw_tamanho` AS
+    SELECT 
+        `tabela_de_produtos`.`CODIGO_DO_PRODUTO` AS `CODIGO_DO_PRODUTO`,
+        (CASE
+            WHEN (SUBSTRING_INDEX(`tabela_de_produtos`.`TAMANHO`, ' ', 1) = 700) THEN CAST(0.70 AS DECIMAL (2 , 2 ))
+            WHEN (SUBSTRING_INDEX(`tabela_de_produtos`.`TAMANHO`, ' ', 1) = 350) THEN CAST(0.35 AS DECIMAL (2 , 2 ))
+            WHEN (SUBSTRING_INDEX(`tabela_de_produtos`.`TAMANHO`, ' ', 1) = 470) THEN CAST(0.47 AS DECIMAL (2 , 2 ))
+            WHEN (SUBSTRING_INDEX(`tabela_de_produtos`.`TAMANHO`, ' ', 1) = '1,5') THEN CAST(1.5 AS DECIMAL (2 , 1 ))
+            ELSE CAST(SUBSTRING_INDEX(`tabela_de_produtos`.`TAMANHO`, ' ', 1)
+                AS DECIMAL (1 , 1 ))
+        END) AS `TAMANHO`
+    FROM
+        `tabela_de_produtos`;
